@@ -15,7 +15,7 @@ Table.cell(row, col)
 	returns a string of whatever is stored at row, col
 
 Table.analyzeTable()
-	does analysis on the table, creates a new sheet within the dataTable 
+	does analysis on the table, returns a IXLWorksheet containing information about each column
 
 Column.cell(row)
 	returns a string of whatever is stored at row in that Column
