@@ -1,0 +1,22 @@
+basic documentation for now
+
+each class contains data related to the schema
+
+
+Table contains a list of Columns and some additional data
+Columns contains a list of IXLColumns and some additional data
+
+Columns are automatically created when you create a Table
+
+Table table = new Table(IXLWorkbook dataTable, IXLWorkbook schema)
+	Creates a new table, the table will take in a IXLWorkbook dataTable that is the data excel and a IXLWorkbook schema that is the schema excel
+
+Table.cell(row, col)
+	returns a string of whatever is stored at row, col
+
+Table.analyzeTable()
+	does analysis on the table, creates a new sheet within the dataTable 
+
+Column.cell(row)
+	returns a string of whatever is stored at row in that Column
+

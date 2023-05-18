@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System;
+using ClosedXML;
+using Classes;
+
+namespace Program
+{
+    class DynamicsColumnAnalizerTool
+    {
+        public static void Main(string[] args)
+        {
+
+        }
+    }
+}

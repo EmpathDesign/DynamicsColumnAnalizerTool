@@ -1,0 +1,15 @@
+
+
+
+Todo list for Dynamics Column Analyzer Tool, D cat
+
+1. finish framework
+	:Column class needs propper constructor and Table needs addColumn()
+	:Column needs relations to schema
+	:Table needs addColumn
+
+2. reimplement old functionality
+
+3. add features (whatever takes priority)
+
+4. There is probably going to be a lot of code, make sure to create SOME documentation for the classes 
