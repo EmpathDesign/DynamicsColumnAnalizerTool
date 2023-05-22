@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PSGLSMbbEaD2tJwx5wjsrVoG01LsshKsYdiPhGyeux3yS71yua7udCQNHkDdFA7CMq6yUzT7+kq7C72zJx4uSA==",
+  "dgSpecHash": "kokvjnBa5SAXePpOzJd1P94lhaKyEPDLF2unFHHN+e00IPyFledFwvYGKLU11CwnHXsri+YbtS0ejaNtsXd42w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Empath Designer\\Documents\\GitHub\\DynamicsColumnAnalizerTool\\DynamicsColumnAnalizerTool\\DynamicsColumnAnalizerTool.csproj",
   "expectedPackageFiles": [
@@ -115,7 +115,10 @@
     "C:\\Users\\Empath Designer\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Empath Designer\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Empath Designer\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Empath Designer\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
+    "C:\\Users\\Empath Designer\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
+    "C:\\Users\\Empath Designer\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.1\\microsoft.netcore.app.runtime.win-x64.7.0.1.nupkg.sha512",
+    "C:\\Users\\Empath Designer\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.1\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.1.nupkg.sha512",
+    "C:\\Users\\Empath Designer\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.1\\microsoft.aspnetcore.app.runtime.win-x64.7.0.1.nupkg.sha512"
   ],
   "logs": []
 }
