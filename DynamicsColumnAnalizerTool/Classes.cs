@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace Classes;
 
@@ -21,14 +22,14 @@ public class Column
     public int SchemaRow { get; set; } //row on the schema table
     public string PercentFilled { get; }
 
-    public Column(IXLColumn col)
+    public Column(IXLColumn col, int maxRow)
     {
         ColumnData = col;
-        
+        NumRows = maxRow;
         NumFilledRows = findNumFulledRows();
-        PercentFilled = ((float)NumFilledRows / (float)NumRows).ToString("#.##") + "%";
+        PercentFilled = (((float)NumFilledRows / (float)NumRows) * 100).ToString("#.##") + "%";
 
-        //define schema row here to avoid non nullable / nullable type errors, if for whatever reason this value does not get reset from 0 the process will crash
+        //define schema row here to avoid non nullable / nullable type errors, if for whatever reason this value does not get reset from 0 the process will show it in console 
         SchemaRow = 0;
         //adjust the width of the column to match its contents (no more cutoff column names)
         col.AdjustToContents();
@@ -43,9 +44,9 @@ public class Column
     private int findNumFulledRows()
     {
         int count = 0;
-        for (int i = 1; i < NumRows; i++)
+        for (int i = 1; i <= NumRows; i++)
         {
-            if (!string.IsNullOrWhiteSpace(this.cell(i)))
+            if (!string.IsNullOrWhiteSpace(cell(i)))
             {
                 count++;
             }
@@ -71,7 +72,7 @@ public class Table
     
     public IXLWorksheet Schema { get; } //schema worksheet, rotated "90 degees" (column names iterate by row instead of by column)
     public List<Column> Columns { get; set; } //list of columns, Column[index].ColumnData.Cell(row) OR Column[index].Cell(row)
-    public int? NumRows { get; } //number of data entries, used to analyze the usefulnes of any column or table
+    public int NumRows { get; } //number of data entries, used to analyze the usefulnes of any column or table
     public int? NumCols { get; } //number of columns in table
     public DateTime? LastUpdated { get; } //last time the table was updated, not all tables have this
 
@@ -88,14 +89,16 @@ public class Table
         IsCustomEntity = Boolean.Parse(Schema.Cell(7, 2).Value.ToString());
         OwnershipType = Schema.Cell(8, 2).Value.ToString();
 
-        //add IXLColumns to Columns list
-        foreach (IXLColumn col in data.Columns())
+        Columns = new List<Column>();
+
+        NumCols = findNumCol(data);
+        NumRows = findNumRow(data);
+        //add Columns to Columns list
+        foreach (var col in data.Columns())
         {
-            Columns.Add(new Column(col));
+            Columns.Add(new Column(col, NumRows));
         }
        
-        NumCols = Columns.Count;
-        NumRows = findNumRow();
 
 
         //read through schema and populate Column with metadata
@@ -103,17 +106,29 @@ public class Table
         {
             col.DisplayName = col.cell(1); //get displayname from the top of the column
             col.SchemaRow = findMatchingSchemaRow(col.DisplayName); //gets the row in which the column metadata is stored in the schema file
-            //gets all other column data 
-            col.LogicalName = Schema.Cell(col.SchemaRow, 1).Value.ToString();  
-            col.SchemaName = Schema.Cell(col.SchemaRow, 2).Value.ToString();
-            col.AttributeType = Schema.Cell(col.SchemaRow, 4).Value.ToString();
-            col.Description = Schema.Cell(col.SchemaRow, 5).Value.ToString();
-            col.HasCustomAttribute = Boolean.Parse(Schema.Cell(col.SchemaRow, 6).Value.ToString());
-            col.Type = Schema.Cell(col.SchemaRow, 7).Value.ToString();
-            col.AdditionalData = Schema.Cell(col.SchemaRow, 8).Value.ToString();
+            //if the schema row is not found do not use it (avoids index error from accessing a cell with a row or column less than 1)
+            if (col.SchemaRow != 0)
+            {
+                //gets all other column data 
+                col.LogicalName = Schema.Cell(col.SchemaRow, 1).Value.ToString();
+                col.SchemaName = Schema.Cell(col.SchemaRow, 2).Value.ToString();
+                col.AttributeType = Schema.Cell(col.SchemaRow, 4).Value.ToString();
+                col.Description = Schema.Cell(col.SchemaRow, 5).Value.ToString();
+                if (!Schema.Cell(col.SchemaRow, 6).IsEmpty())//sometimes empty
+                {
+                    col.HasCustomAttribute = Boolean.Parse(Schema.Cell(col.SchemaRow, 6).Value.ToString());
+                }
+                col.Type = Schema.Cell(col.SchemaRow, 7).Value.ToString();
+                col.AdditionalData = Schema.Cell(col.SchemaRow, 8).Value.ToString();
+            }
         }
-
-        
+        /*
+        outputSheet.Cell(1, 2).Value = 
+        IXLWorksheet outputSheet = dataTable.AddWorksheet("dataOut");
+        for (int i = 0; i < NumCols; i++)
+        {
+            outputSheet.Cell(1, 1)
+        }*/
     }
     
     //assumes the Display Names are on column 3
@@ -121,7 +136,7 @@ public class Table
     {
         //skips the first ten rows
         //compares display name in schema to display name stored in the Column class
-        for (int i = 10; i < NumRows; i++)
+        for (int i = 10; i < Schema.RowCount(); i++)
         {
             if(Schema.Cell(i, 3).Value.ToString().Equals(columnDisplayName))
             {
@@ -129,7 +144,7 @@ public class Table
             }
         }
 
-        Console.WriteLine("Oh No! It looks like no schema row was found for " + columnDisplayName);
+        Console.WriteLine("Oh No! It looks like no schema row was found for " + columnDisplayName + "\nAre the Data And Schema Files Mismatched?");
         return 0; //if no row is found return 0
     }
 
@@ -160,25 +175,26 @@ public class Table
     }
     */
 
-
+    //analyze the table and place the output in a new sheet in the data Excel
     public void analyzeTable()
     {
         //backtraces? to the workbook and makes a new worksheet for output
         IXLWorksheet output = Columns[1].ColumnData.Worksheet.Workbook.AddWorksheet();
-        output.Cell(1, 2).Value = "Column Names";
-        output.Cell(1, 3).Value = "Total Filled";
-        output.Cell(1, 4).Value = "Percent Filled";
+        output.Cell(1, 1).Value = "Display Names";
+        output.Cell(1, 2).Value = "Total Filled";
+        output.Cell(1, 3).Value = "Percent Filled";
 
         for (int i = 1; i < NumCols; i++)
         {
-            output.Cell(i, 1).Value = Columns[i].DisplayName;
-            output.Cell(i, 2).Value = Columns[i].NumFilledRows;
-            output.Cell(i, 3).Value = Columns[i].DisplayName;
+            output.Cell(i + 1, 1).Value = Columns[i].DisplayName;
+            output.Cell(i + 1, 2).Value = Columns[i].NumFilledRows;
+            output.Cell(i + 1, 3).Value = Columns[i].PercentFilled;
 
         }
-
-
-        //this might not actually save 
+        output.Column(1).AdjustToContents();
+        output.Column(2).AdjustToContents();
+        output.Column(3).AdjustToContents();
+        //through magic this works
         Columns[1].ColumnData.Worksheet.Workbook.Save();
     }
 
@@ -189,20 +205,35 @@ public class Table
     }
 
     //internal method for finding the max row in a excel
-    private int findNumRow()
+    private int findNumRow(IXLWorksheet ws)
     {
-        int num = 0;
-        foreach (Column col in Columns)
+        int row = 0;
+        bool rowIsPopulated = true;
+        while (rowIsPopulated)
         {
-            num = 0;
-            //while the cell in that column in that row is not empty iterate i and num 
-            //this code assumes that there is at least one column that is fully populated (100% of rows filled)
-            for (int i = 1; !string.IsNullOrWhiteSpace(col.cell(i)); i++)
+            rowIsPopulated = false;
+            row++;
+            for (int i = 1; i < NumCols; i++)
             {
-                num++;
+                if (!string.IsNullOrWhiteSpace(ws.Cell(row, i).Value.ToString()))
+                {
+                    rowIsPopulated = true;
+                }
             }
         }
-        return num;
+        Console.WriteLine("highest row: " + row.ToString());
+        return row;
+    }
+
+    private int findNumCol(IXLWorksheet ws)
+    {
+        int col = 1;
+
+        while(!string.IsNullOrWhiteSpace(ws.Cell(1, col).Value.ToString()))
+        {
+            col++;
+        }
+        return col++;
     }
 
 }

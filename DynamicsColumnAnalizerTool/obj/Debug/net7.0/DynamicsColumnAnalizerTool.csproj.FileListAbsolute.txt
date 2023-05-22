@@ -1,8 +1,3 @@
-C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.csproj.AssemblyReference.cache
-C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.AssemblyInfoInputs.cache
-C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.AssemblyInfo.cs
-C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.csproj.CoreCompileInputs.cache
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\DynamicsColumnAnalizerTool.exe
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\DynamicsColumnAnalizerTool.deps.json
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\DynamicsColumnAnalizerTool.runtimeconfig.json
@@ -15,6 +10,11 @@ C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsCol
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\SixLabors.Fonts.dll
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\System.IO.Packaging.dll
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\bin\Debug\net7.0\XLParser.dll
+C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.csproj.AssemblyReference.cache
+C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.AssemblyInfoInputs.cache
+C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.AssemblyInfo.cs
+C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.csproj.CoreCompileInputs.cache
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.csproj.CopyComplete
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\DynamicsColumnAnalizerTool.dll
 C:\Users\Empath Designer\Documents\GitHub\DynamicsColumnAnalizerTool\DynamicsColumnAnalizerTool\obj\Debug\net7.0\refint\DynamicsColumnAnalizerTool.dll
